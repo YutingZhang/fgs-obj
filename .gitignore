@@ -30,9 +30,16 @@
 # Mex
 *.mex*
 
+# caffemodel
+*.caffemodel
+
 # External dependency
 
 dependency/SelectiveSearch
 dependency/minFunc
 dependency/gpml-matlab-v3.4-2013-11-11
+
+# cache folder
+voc2007_train_cache
+
 
