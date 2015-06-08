@@ -1,0 +1,56 @@
+# This Makefile is used under Linux
+
+MATLABDIR ?= /usr/local/matlab
+CXX ?= g++
+#CXX = g++-3.3
+CC ?= gcc
+CFLAGS = -Wall -Wconversion -O3 -fPIC -I$(MATLABDIR)/extern/include -I..
+LIBS = -lmkl_intel_ilp64 -lmkl_core -lmkl_intel_thread -lpthread -lm -liomp5
+
+MEX = $(MATLABDIR)/bin/mex
+MEX_OPTION = CC\#$(CXX) CXX\#$(CXX) CFLAGS\#"$(CFLAGS)" CXXFLAGS\#"$(CFLAGS)"
+# comment the following line if you use MATLAB on a 32-bit computer
+MEX_OPTION += -largeArrayDims
+MEX_EXT = $(shell $(MATLABDIR)/bin/mexext)
+
+OCTAVEDIR ?= /usr/include/octave
+OCTAVE_MEX = env CC=$(CXX) mkoctfile
+OCTAVE_MEX_OPTION = --mex
+OCTAVE_MEX_EXT = mex
+OCTAVE_CFLAGS = -Wall -O3 -fPIC -I$(OCTAVEDIR) -I..
+
+all:	matlab
+
+matlab:	binary
+
+octave:
+	@make MEX="$(OCTAVE_MEX)" MEX_OPTION="$(OCTAVE_MEX_OPTION)" \
+	MEX_EXT="$(OCTAVE_MEX_EXT)" CFLAGS="$(OCTAVE_CFLAGS)" \
+	binary
+
+binary: liblinear_train.$(MEX_EXT) liblinear_predict.$(MEX_EXT) libsvmread.$(MEX_EXT) libsvmwrite.$(MEX_EXT)
+
+liblinear_train.$(MEX_EXT): train.c ../linear.h ../tron.o ../linear.o linear_model_matlab.o
+	$(MEX) $(MEX_OPTION) $(LIBS)  -o $@ train.c ../tron.o ../linear.o linear_model_matlab.o 
+
+liblinear_predict.$(MEX_EXT): predict.c ../linear.h ../tron.o ../linear.o linear_model_matlab.o
+	$(MEX) $(MEX_OPTION) $(LIBS) -o $@ predict.c ../tron.o ../linear.o linear_model_matlab.o
+
+libsvmread.$(MEX_EXT):	libsvmread.c
+	$(MEX) $(MEX_OPTION) -o $@ libsvmread.c
+
+libsvmwrite.$(MEX_EXT):	libsvmwrite.c
+	$(MEX) $(MEX_OPTION) -o $@ libsvmwrite.c
+
+linear_model_matlab.o: linear_model_matlab.c ../linear.h
+	$(CXX) $(CFLAGS) -o $@ -c linear_model_matlab.c
+
+../linear.o: ../linear.cpp ../linear.h
+	make -C .. -f Makefile.INTEL_MKL linear.o
+
+../tron.o: ../tron.cpp ../tron.h 
+	make -C .. -f Makefile.INTEL_MKL tron.o
+
+clean:
+	make -C ../blas clean
+	rm -f *~ *.o *.mex* *.obj ../linear.o ../tron.o
