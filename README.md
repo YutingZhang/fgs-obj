@@ -6,6 +6,7 @@ This software is the demo code for the following paper:
 
 Please cite the above paper, if you use this software for your publications. 
 
+You can find our paper, slides, and poster at <http://www.ytzhang.net/>
 
 Setup
 =====
