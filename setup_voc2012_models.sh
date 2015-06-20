@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TRAIN_CACHE_DIR=voc2007_train_cache
+TRAIN_CACHE_DIR=voc2012_train_cache
 
 # set up svm linear model
 mkdir -p models_svm_linear
@@ -23,10 +23,4 @@ cd models_svm_struct
 ../force_link_s.sh ../$TRAIN_CACHE_DIR/GPTrain/svm_struct gp
 ../force_link_s.sh ../$TRAIN_CACHE_DIR/PrepDataset/trainval-categlist.mat categ_list.mat
 cd ..
-
-# set up region proposal cache 
-./force_link_s.sh $TRAIN_CACHE_DIR/RegionProposal/test/boxes.mat voc2007_test_bbox_cache.mat
-
-# set up feature cache
-# ./force_link_s.sh $TRAIN_CACHE_DIR/Features4Proposed voc2007_feature_cache
 

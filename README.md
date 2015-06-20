@@ -24,7 +24,7 @@ Run the following bash script in the root folder to download necessary dependenc
 
 Run the following bash script in the root folder of the code to get the trained models on PASCAL VOC2007 dataset:
 
-        $ ./get_data.sh
+        $ ./get_data_voc2007.sh
 
 After that, run the following bash script to set up the trained models for the test demo by
 
@@ -184,7 +184,19 @@ where `model_type = 'struct'/'linear'`. This indicates whether to use the linear
 
 Models for PASCAL VOC2012
 =========================
+Run the following bash script in the root folder of the code to get the trained models on PASCAL VOC2007 dataset:
 
+        $ ./get_data_voc2012.sh
+
+Run the following bash script to set up the trained models for the test demo by
+
+        $ ./setup_voc2012_models.sh
+Note that the symlinks for VOC 2007 models will be removed by running this command (the original files are still there). To revert to VOC 2007 models, run `./setup_voc2007_models.sh`.
+
+After that, `simple_demo4` will use the VOC 2012 demo. 
+
+For benchmarking and training models on VOC 2012, please modify the code for VOC 2007. 
+ 
 
 References
 ==========
