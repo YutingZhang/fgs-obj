@@ -108,14 +108,20 @@ for c = 1:length(PARAM.CategOfInterest)
     hyp.mean = repmat( 0, 1, gp_hyp_dim( meanfunc, x_dim ) );
     hyp.cov  = repmat( 0, 1, gp_hyp_dim( covfunc,  x_dim ) );
     sn = 0.1; hyp.lik = repmat( log(sn), 1, gp_hyp_dim( likfunc, x_dim ) );
-    
+   
     try
-        hyp2 = minimize_lbfgsb(hyp, @gp_cellInput, -PARAM.GP_Train_MaxIterationNum, ...
-            @infExact, meanfunc, covfunc, likfunc, trainX, trainY );
+        hyp2 = minFuncX( @(h) gp_cellInput(h, ...
+            @infExact, meanfunc, covfunc, likfunc, trainX, trainY), hyp );
     catch
-        warning('lbfgs-b failed, try the alternative solver');
-        hyp2 = minimize(hyp, @gp_cellInput, -PARAM.GP_Train_MaxIterationNum, ...
-            @infExact, meanfunc, covfunc, likfunc, trainX, trainY );
+        warning('minFuncX failed, try the alternative solver : minimize_lbfgsb');
+        try
+            hyp2 = minimize_lbfgsb(hyp, @gp_cellInput, -PARAM.GP_Train_MaxIterationNum, ...
+                @infExact, meanfunc, covfunc, likfunc, trainX, trainY );
+        catch
+            warning('minimize_lbfgsb failed, try the alternative solver : minimize');
+            hyp2 = minimize(hyp, @gp_cellInput, -PARAM.GP_Train_MaxIterationNum, ...
+                @infExact, meanfunc, covfunc, likfunc, trainX, trainY );
+        end
     end
 
     GP_Param.hyp = hyp2;

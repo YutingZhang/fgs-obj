@@ -139,8 +139,8 @@ When “`benchmark_voc2007`” is done, the precision, recall and the
 average precision (AP) for each object category will be displayed on the
 screen and saved into a mat file.
 
-Model Training 
-===============
+Model Training on PASCAL VOC 2007
+=================================
 
 The training procedure consists of multiple stages. The intermediate
 outputs of all the stages will be cached. Please remove the cached
@@ -181,6 +181,10 @@ detection models by running the following command in `MATLAB`:
         >> train_demo(model_type);
 
 where `model_type = 'struct'/'linear'`. This indicates whether to use the linear SVM or the structured SVM for the classifier. The stages shared between the two cases will run only once if you want to train both the two models. We include a stage-by-stage description of the training procedure in “`train_demo.m`”.
+
+Models for PASCAL VOC2012
+=========================
+
 
 References
 ==========
