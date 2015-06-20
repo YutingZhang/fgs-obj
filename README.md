@@ -193,7 +193,7 @@ Run the following bash script to set up the trained models for the test demo by
         $ ./setup_voc2012_models.sh
 Note that the symlinks for VOC 2007 models will be removed by running this command (the original files are still there). To revert to VOC 2007 models, run `./setup_voc2007_models.sh`.
 
-After that, `simple_demo4` will use the VOC 2012 demo. 
+After that, `simple_demo4` will use the VOC 2012 models. 
 
 For benchmarking and training models on VOC 2012, please modify the code for VOC 2007. 
  
