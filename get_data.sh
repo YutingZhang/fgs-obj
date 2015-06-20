@@ -7,7 +7,7 @@ tar -xzf voc2007_train_cache.cnn.tar.gz
 #rm -f voc2007_train_cache.cnn.tar.gz
 
 wget -c http://www.ytzhang.net/files/fgs-obj/cache/voc2007/voc2007_train_cache.cnn.tar.gz
-tar -xzf voc2007_train_cache.rest.tar.gz
+tar -xzf voc2007_train_cache.rest.20150620.tar.gz
 #rm -f voc2007_train_cache.rest.tar.gz
 
 echo Get Orignal VGG Model
