@@ -2,8 +2,8 @@ function compile_dependency
 
 % gpml
 [~, ~, ext1__] = fileparts( which( 'solve_chol' ) );
-[~, ~, ext2__] = fileparts( which( 'lbfgsb' ) );
-if ~strncmp(ext1__,'.mex',length('.mex')) ||  ~strncmp(ext2__,'.mex',length('.mex'))
+% [~, ~, ext2__] = fileparts( which( 'lbfgsb' ) );
+if ~strncmp(ext1__,'.mex',length('.mex')) %||  ~strncmp(ext2__,'.mex',length('.mex'))
     gp_setup
     fprintf(1,'gpml toolbox is compiled\n');
 end
