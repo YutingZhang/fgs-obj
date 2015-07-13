@@ -155,6 +155,7 @@ the pretrained CNN model on the PASCAL VOC2007 database, you run the
 following commands in `MATLAB`:
 
         >> trainInit_svmLinear
+        >> trainCallStage('PrepDataset');
         >> trainCallStage('BoxList4Finetune');
 
 You will get the list of bounding boxes that is required to finetune the
