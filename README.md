@@ -150,12 +150,16 @@ the very scratch. If you do not want to retrain the CNN model, please leave the 
 CNN fine-tuning
 ---------------
 
-Suppose the the folder “`./voc2007_train_cache`” is empty. To finetune
+Suppose the the folder “`./voc2007_train_cache`” is empty (You can keep `PrepDataset` and `RegionProposal`). To finetune
 the pretrained CNN model on the PASCAL VOC2007 database, you run the
 following commands in `MATLAB`:
 
         >> trainInit_svmLinear
+        
         >> trainCallStage('PrepDataset');
+        >> trainCallStage('RegionProposal'); 
+        % You may ignore the above two steps if you have kept the cache
+        
         >> trainCallStage('BoxList4Finetune');
 
 You will get the list of bounding boxes that is required to finetune the
