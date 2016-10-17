@@ -5,7 +5,7 @@ function svm_model = HardTrainSVM( cachePos, numMaxAddedNeg, numEpoch, ...
 
 fprintf( 1, '****** Hard SVM Train\n' );
 
-if ~exist( 'Epoch_Callback', 'var' ) || isempty(CategList)
+if ~exist( 'Epoch_Callback', 'var' ) || isempty(Epoch_Callback)
     Epoch_Callback = @(cl,ep) dummy(cl,ep);
 end
 
